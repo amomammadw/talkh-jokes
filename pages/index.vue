@@ -1,5 +1,37 @@
 <template>
-  <div>Takh Jokes Here</div>
+  <div
+    class="min-h-dvh flex flex-col overflow-hidden items-center justify-between py-4"
+  >
+    <p class="text-xs text-gray-600">Build with love by mammad</p>
+
+    <div class="space-y-3">
+      <h1 class="text-7xl font-bold">Talkh Jokes For You :)</h1>
+      <UInput size="lg" />
+      <UButton class="mx-auto block">Browse All Jokes</UButton>
+    </div>
+
+    <div class="flex items-center *:text-2xl justify-center space-x-4">
+      <template v-for="link in items" :key="link.icon" v-once>
+        <UButton :icon="link.icon" variant="ghost" :to="link.link" />
+      </template>
+      <UButton icon="i-tabler-moon" variant="ghost" />
+    </div>
+  </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const items = [
+  {
+    icon: "i-tabler-brand-linkedin",
+    link: "/",
+  },
+  {
+    icon: "i-tabler-brand-github",
+    link: "/",
+  },
+  {
+    icon: "i-tabler-world",
+    link: "/",
+  },
+];
+</script>
