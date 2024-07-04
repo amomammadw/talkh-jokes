@@ -5,8 +5,10 @@
     <p class="text-xs text-gray-600">Build with love by mammad</p>
 
     <div class="space-y-3">
-      <h1 class="text-7xl font-bold">Talkh Jokes For You :)</h1>
-      <UInput size="lg" />
+      <h1 class="xl:text-7xl md:text-6xl text-3xl font-bold">
+        Talkh Jokes For You :)
+      </h1>
+      <UInput size="lg" placeholder="Add Your Joke :)" />
       <UButton class="mx-auto block">Browse All Jokes</UButton>
     </div>
 
@@ -14,12 +16,14 @@
       <template v-for="link in items" :key="link.icon" v-once>
         <UButton :icon="link.icon" variant="ghost" :to="link.link" />
       </template>
-      <UButton icon="i-tabler-moon" variant="ghost" />
+
+      <ToggleTheme />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+const isDark = useColorMode();
 const items = [
   {
     icon: "i-tabler-brand-linkedin",
