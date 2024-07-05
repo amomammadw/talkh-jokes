@@ -4,14 +4,16 @@ export default defineNuxtConfig({
 
   modules: ["@nuxt/ui"],
 
-  routeRules: {
-    // prerender index route by default
-    "/": { prerender: true },
-  },
-
   ui: {
     icons: ["tabler"],
   },
+
+  components: [
+    {
+      path: "~/components",
+      pathPrefix: false,
+    },
+  ],
 
   compatibilityDate: "2024-07-04",
 });

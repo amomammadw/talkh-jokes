@@ -23,7 +23,6 @@
 </template>
 
 <script setup lang="ts">
-const isDark = useColorMode();
 const items = [
   {
     icon: "i-tabler-brand-linkedin",
