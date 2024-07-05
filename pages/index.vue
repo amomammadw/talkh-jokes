@@ -13,9 +13,9 @@
     </div>
 
     <div class="flex items-center *:text-2xl justify-center space-x-4">
-      <template v-for="link in items" :key="link.icon" v-once>
+      <!-- <template v-for="link in items" :key="link.icon" v-once>
         <UButton :icon="link.icon" variant="ghost" :to="link.link" />
-      </template>
+      </template> -->
 
       <ToggleTheme />
     </div>
@@ -23,18 +23,10 @@
 </template>
 
 <script setup lang="ts">
-const items = [
-  {
-    icon: "i-tabler-brand-linkedin",
-    link: "/",
-  },
-  {
-    icon: "i-tabler-brand-github",
-    link: "/",
-  },
-  {
-    icon: "i-tabler-world",
-    link: "/",
-  },
-];
+const { t } = useI18n();
+
+useHead({
+  title: t("pages.homepage.meta.title"),
+  meta: [{ name: "description", content: t("pages.homepage.meta.desc") }],
+});
 </script>

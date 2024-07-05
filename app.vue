@@ -2,9 +2,7 @@
   <div>
     <NuxtLoadingIndicator :height="3" />
     <NuxtLayout>
-      <UContainer>
-        <NuxtPage />
-      </UContainer>
+      <NuxtPage />
     </NuxtLayout>
   </div>
 </template>

@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  modules: ["@nuxt/ui"],
+  modules: ["@nuxt/ui", "@nuxtjs/i18n"],
 
   ui: {
     icons: ["tabler"],
@@ -14,6 +14,32 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
   ],
+
+  i18n: {
+    defaultLocale: "fa",
+    langDir: "./locales",
+    defaultDirection: "rtl",
+    baseUrl: "https://talkh-jokes.vercel.app",
+    strategy: "prefix",
+    detectBrowserLanguage: {
+      alwaysRedirect: true,
+      fallbackLocale: "fa",
+    },
+    locales: [
+      {
+        code: "fa",
+        iso: "fa-IR",
+        file: "fa.ts",
+        dir: "rtl",
+      },
+      {
+        code: "en",
+        iso: "en-US",
+        file: "en.ts",
+        dir: "ltr",
+      },
+    ],
+  },
 
   compatibilityDate: "2024-07-04",
 });
