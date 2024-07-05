@@ -12,10 +12,10 @@
       <UButton class="mx-auto block">Browse All Jokes</UButton>
     </div>
 
-    <div class="flex items-center *:text-2xl justify-center space-x-4">
-      <!-- <template v-for="link in items" :key="link.icon" v-once>
-        <UButton :icon="link.icon" variant="ghost" :to="link.link" />
-      </template> -->
+    <div class="flex items-center *:text-2xl justify-center space-x-4" v-once>
+      <template v-for="link in linkItems" :key="link.icon">
+        <UButton :icon="link.icon" variant="ghost" />
+      </template>
 
       <ToggleTheme />
     </div>
@@ -29,4 +29,19 @@ useHead({
   title: t("pages.homepage.meta.title"),
   meta: [{ name: "description", content: t("pages.homepage.meta.desc") }],
 });
+
+const linkItems = [
+  {
+    icon: "i-tabler-brand-twitter-filled",
+  },
+  {
+    icon: "i-tabler-brand-instagram",
+  },
+  {
+    icon: "i-tabler-brand-linkedin",
+  },
+  {
+    icon: "i-tabler-brand-github",
+  },
+];
 </script>
