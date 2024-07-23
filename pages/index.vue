@@ -25,6 +25,14 @@
 <script setup lang="ts">
 const { t } = useI18n();
 
+const client = useSupabaseClient();
+
+const { data } = await useLazyAsyncData("jokes-list", async () => {
+  const { data } = await client.from("jokes").select();
+
+  return data;
+});
+
 useHead({
   title: t("pages.homepage.meta.title"),
   meta: [{ name: "description", content: t("pages.homepage.meta.desc") }],

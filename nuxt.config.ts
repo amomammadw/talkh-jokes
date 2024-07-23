@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  modules: ["@nuxt/ui", "@nuxtjs/i18n"],
+  modules: ["@nuxt/ui", "@nuxtjs/i18n", "@nuxtjs/supabase"],
 
   ui: {
     icons: ["tabler"],
@@ -14,6 +14,10 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
   ],
+
+  supabase: {
+    redirect: false,
+  },
 
   i18n: {
     defaultLocale: "fa",
