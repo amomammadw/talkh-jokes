@@ -1,23 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: "2024-04-03",
+
   devtools: { enabled: true },
-
-  modules: ["@nuxt/ui", "@nuxtjs/supabase"],
-
-  components: [
-    {
-      path: "~/components",
-      pathPrefix: false,
-    },
-  ],
 
   supabase: {
     redirect: false,
   },
 
-  icon: {
-    collections: ["tabler"],
-  },
-
-  compatibilityDate: "2024-07-04",
+  modules: ["@nuxt/ui", "@nuxtjs/supabase"],
 });

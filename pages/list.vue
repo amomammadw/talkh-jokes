@@ -1,5 +1,5 @@
 <template>
-  <div>List of Jokes</div>
+  <div>List Here</div>
 </template>
 
 <script setup lang="ts"></script>

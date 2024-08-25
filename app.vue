@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtLoadingIndicator :height="3" />
+    <NuxtRouteAnnouncer />
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>

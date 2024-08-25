@@ -1,44 +1,55 @@
 <template>
-  <div
-    class="min-h-dvh flex flex-col overflow-hidden items-center justify-between py-4"
-  >
-    <p class="text-xs text-gray-600">Build with love by mammad</p>
+  <UContainer class="h-dvh flex flex-col items-center justify-center">
+    <UCard class="size-[500px]">
+      <UForm @submit="onSubmit" :state :schema class="space-y-3">
+        <UFormGroup label="Who is Joking" required name="name">
+          <UInput v-model="state.name" placeholder="Enter Name Here" />
+        </UFormGroup>
+        <UFormGroup label="Joke" required name="joke">
+          <UInput v-model="state.joke" placeholder="Enter Joke Here" />
+        </UFormGroup>
+        <UButton type="submit" :loading="listStatus === 'pending'">
+          Submit
+        </UButton>
+      </UForm>
 
-    <div class="space-y-3">
-      <h1 class="xl:text-7xl md:text-6xl text-3xl font-bold">
-        Talkh Jokes For You :)
-      </h1>
-      <UInput size="lg" placeholder="Add Your Joke :)" />
-      <UButton class="mx-auto" to="/list">Browse All Jokes</UButton>
-      {{ data }}
-    </div>
-
-    <div class="flex items-center *:text-2xl justify-center space-x-4" v-once>
-      <template v-for="link in linkItems" :key="link.icon">
-        <UButton :icon="link.icon" variant="ghost" />
-      </template>
-
-      <ToggleTheme />
-    </div>
-  </div>
+      <ul class="mt-5">
+        <template v-for="joke in data">
+          <li>{{ joke.name }} said {{ joke.joke }}</li>
+        </template>
+      </ul>
+    </UCard>
+  </UContainer>
 </template>
 
 <script setup lang="ts">
-const { data } = await useFetch("/api/jokes");
-console.log(data.value);
+import { object, string, type InferType } from "yup";
+import type { FormSubmitEvent } from "#ui/types";
 
-const linkItems = [
-  {
-    icon: "i-tabler-brand-twitter-filled",
-  },
-  {
-    icon: "i-tabler-brand-instagram",
-  },
-  {
-    icon: "i-tabler-brand-linkedin",
-  },
-  {
-    icon: "i-tabler-brand-github",
-  },
-];
+const schema = object({
+  name: string().required(),
+  joke: string().required(),
+});
+
+type Schema = InferType<typeof schema>;
+
+const state = reactive<Schema>({
+  name: "",
+  joke: "",
+});
+
+const { data, refresh, status: listStatus } = await useFetch("/api/jokes");
+const { execute, status } = await useFetch("/api/jokes", {
+  method: "POST",
+  immediate: false,
+  watch: false,
+  body: state,
+});
+
+async function onSubmit(event: FormSubmitEvent<Schema>) {
+  await execute();
+  if (status.value === "success") {
+    refresh();
+  }
+}
 </script>
