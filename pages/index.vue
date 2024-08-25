@@ -9,7 +9,8 @@
         Talkh Jokes For You :)
       </h1>
       <UInput size="lg" placeholder="Add Your Joke :)" />
-      <UButton class="mx-auto block">Browse All Jokes</UButton>
+      <UButton class="mx-auto" to="/list">Browse All Jokes</UButton>
+      {{ data }}
     </div>
 
     <div class="flex items-center *:text-2xl justify-center space-x-4" v-once>
@@ -23,20 +24,8 @@
 </template>
 
 <script setup lang="ts">
-const { t } = useI18n();
-
-const client = useSupabaseClient();
-
-const { data } = await useLazyAsyncData("jokes-list", async () => {
-  const { data } = await client.from("jokes").select();
-
-  return data;
-});
-
-useHead({
-  title: t("pages.homepage.meta.title"),
-  meta: [{ name: "description", content: t("pages.homepage.meta.desc") }],
-});
+const { data } = await useFetch("/api/jokes");
+console.log(data.value);
 
 const linkItems = [
   {
