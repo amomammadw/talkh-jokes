@@ -1,6 +1,6 @@
 <template>
   <UContainer class="h-dvh flex flex-col items-center justify-center">
-    <UCard class="size-[500px]">
+    <UCard class="md:size-[500px] m-4 size-full">
       <UForm @submit="onSubmit" :state :schema class="space-y-3">
         <UFormGroup label="Who is Joking" required name="name">
           <UInput v-model="state.name" placeholder="Enter Name Here" />
