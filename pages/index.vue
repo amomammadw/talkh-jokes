@@ -13,18 +13,39 @@
         </UButton>
       </UForm>
 
-      <ul class="mt-5">
+      <ul class="mt-5 space-y-3">
         <template v-for="joke in data">
-          <li>{{ joke.name }} said {{ joke.joke }}</li>
+          <li class="flex items-start justify-between">
+            <p>{{ joke.name }} : {{ joke.joke }}</p>
+            <UButton
+              @click="openDialog(joke)"
+              size="sm"
+              icon="tabler:trash"
+              color="red"
+              variant="ghost"
+            ></UButton>
+          </li>
         </template>
       </ul>
     </UCard>
+    <UModal v-model="showDialog">
+      <UCard>
+        <h3>
+          You wanted to delete
+          <b class="text-green-500">{{ activeJoke?.joke }}</b> that is said by
+          <b class="text-green-500"> {{ activeJoke?.name }} </b> ? 😂
+          <br />
+          that ain't gonna happen خوشگله
+        </h3>
+      </UCard>
+    </UModal>
   </UContainer>
 </template>
 
 <script setup lang="ts">
 import { object, string, type InferType } from "yup";
 import type { FormSubmitEvent } from "#ui/types";
+import type { IJokeItem } from "~/types/jokes.type";
 
 const schema = object({
   name: string().required(),
@@ -38,6 +59,8 @@ const state = reactive<Schema>({
   joke: "",
 });
 
+const activeJoke = ref<IJokeItem>();
+
 const { data, refresh, status: listStatus } = await useFetch("/api/jokes");
 const { execute, status } = await useFetch("/api/jokes", {
   method: "POST",
@@ -46,10 +69,17 @@ const { execute, status } = await useFetch("/api/jokes", {
   body: state,
 });
 
+const showDialog = ref(false);
+
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   await execute();
   if (status.value === "success") {
     refresh();
   }
+}
+
+function openDialog(joke?: IJokeItem) {
+  activeJoke.value = joke;
+  showDialog.value = true;
 }
 </script>

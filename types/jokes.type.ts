@@ -1,6 +1,6 @@
 export interface IJokeItem {
   id: string;
-  created_at: Date;
+  created_at: string;
   joke: string;
   name: string;
 }
