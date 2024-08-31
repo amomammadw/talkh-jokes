@@ -1,6 +1,6 @@
 <template>
-  <UContainer class="h-dvh flex flex-col items-center justify-center">
-    <UCard class="md:size-[500px] m-4 size-full overflow-auto">
+  <div>
+    <div>
       <UForm @submit="onSubmit" :state :schema class="space-y-3">
         <UFormGroup label="Who is Joking" required name="name">
           <UInput v-model="state.name" placeholder="Enter Name Here" />
@@ -8,26 +8,31 @@
         <UFormGroup label="Joke" required name="joke">
           <UInput v-model="state.joke" placeholder="Enter Joke Here" />
         </UFormGroup>
-        <UButton type="submit" :loading="listStatus === 'pending'">
+        <UButton type="submit" :disabled="listStatus === 'pending'">
           Submit
         </UButton>
       </UForm>
 
-      <ul class="mt-5 space-y-3">
-        <template v-for="joke in data">
-          <li class="flex items-start justify-between">
-            <p>{{ joke.name }} : {{ joke.joke }}</p>
-            <UButton
-              @click="openDialog(joke)"
-              size="sm"
-              icon="tabler:trash"
-              color="red"
-              variant="ghost"
-            ></UButton>
-          </li>
-        </template>
-      </ul>
-    </UCard>
+      <div v-if="listStatus === 'pending'" class="space-y-3 mt-5">
+        <USkeleton class="w-full h-5" v-for="i in 7" :key="i" />
+      </div>
+      <template v-else>
+        <ul class="mt-5 space-y-3">
+          <template v-for="joke in data">
+            <li class="flex items-start justify-between">
+              <p>{{ joke.name }} : {{ joke.joke }}</p>
+              <UButton
+                @click="openDialog(joke)"
+                size="sm"
+                icon="tabler:trash"
+                color="red"
+                variant="ghost"
+              ></UButton>
+            </li>
+          </template>
+        </ul>
+      </template>
+    </div>
     <UModal v-model="showDialog">
       <UCard>
         <h3>
@@ -39,7 +44,7 @@
         </h3>
       </UCard>
     </UModal>
-  </UContainer>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -61,7 +66,15 @@ const state = reactive<Schema>({
 
 const activeJoke = ref<IJokeItem>();
 
-const { data, refresh, status: listStatus } = await useFetch("/api/jokes");
+const {
+  data,
+  refresh,
+  status: listStatus,
+} = await useLazyFetch("/api/jokes", {
+  getCachedData(key, nuxtApp) {
+    return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
+  },
+});
 const { execute, status } = await useFetch("/api/jokes", {
   method: "POST",
   immediate: false,
