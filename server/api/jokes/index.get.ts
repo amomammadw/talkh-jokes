@@ -3,7 +3,10 @@ import { IJokeItem } from "~/types/jokes.type";
 
 export default defineEventHandler(async (event) => {
   const client = await serverSupabaseClient(event);
-  const { data, error } = await client.from("jokes").select("*");
+  const { data, error } = await client
+    .from("jokes")
+    .select("*")
+    .order("created_at", { ascending: false });
 
   if (error) {
     throw createError({ status: 500, message: "FUCK" });

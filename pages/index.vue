@@ -88,6 +88,8 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   await execute();
   if (status.value === "success") {
     refresh();
+    state.joke = "";
+    state.name = "";
   }
 }
 
