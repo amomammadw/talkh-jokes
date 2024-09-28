@@ -1,4 +1,5 @@
 <template>
+  <!-- https://ihmuzwpqycvbrsvfzaki.supabase.co/auth/v1/callback -->
   <div>
     <div>
       <UForm @submit="onSubmit" :state :schema class="space-y-3">
