@@ -8,6 +8,14 @@
 </template>
 
 <script setup lang="ts">
+const route = useRoute();
 const supabase = useSupabaseClient();
-supabase.auth.initialize();
+
+console.log(route);
+
+const { data, error } = await supabase.auth.exchangeCodeForSession(
+  route.query.code as string
+);
+
+console.log(data, error);
 </script>
