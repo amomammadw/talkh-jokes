@@ -9,13 +9,13 @@
 
 <script setup lang="ts">
 const route = useRoute();
-const supabase = useSupabaseClient();
+// const supabase = useSupabaseClient();
 
 console.log(route);
 
-const { data, error } = await supabase.auth.exchangeCodeForSession(
-  route.query.code as string
-);
+// const { data, error } = await supabase.auth.exchangeCodeForSession(
+//   route.query.code as string
+// );
 
-console.log(data, error);
+// console.log(data, error);
 </script>
