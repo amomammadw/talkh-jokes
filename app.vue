@@ -6,3 +6,8 @@
     </NuxtLayout>
   </div>
 </template>
+
+<script setup lang="ts">
+const supabase = useSupabaseClient();
+supabase.auth.initialize();
+</script>
