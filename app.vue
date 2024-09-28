@@ -11,11 +11,10 @@
 const route = useRoute();
 const supabase = useSupabaseClient();
 
-console.log(route);
-
-const { data, error } = await supabase.auth.exchangeCodeForSession(
-  route.query.code as string
-);
-
-console.log(data, error);
+if (route.query.code) {
+  const { data, error } = await supabase.auth.exchangeCodeForSession(
+    route.query.code as string
+  );
+  console.log(data, error, route);
+}
 </script>
