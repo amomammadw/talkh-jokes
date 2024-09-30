@@ -9,6 +9,9 @@
 <script setup lang="ts">
 const supabase = useSupabaseClient();
 function loginWithGoogle() {
-  supabase.auth.signInWithOAuth({ provider: "google" });
+  supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: { redirectTo: "https://talkh-jokes.vercel.app" },
+  });
 }
 </script>
