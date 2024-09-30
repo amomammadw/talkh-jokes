@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <UButton block icon="tabler-brand-google-filled" @click="loginWithGoogle"
-      >Login With Google</UButton
-    >
+  <div class="pt-8">
+    <UButton block icon="tabler-brand-google-filled" @click="loginWithGoogle">
+      Login With Google
+    </UButton>
   </div>
 </template>
 
